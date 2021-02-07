@@ -15,14 +15,11 @@ class TeachersAPIDetailView(generics.RetrieveAPIView):
     queryset = Teachers.objects.all()
     serializer_class = TeachersSerializer
 
-class StudentWithTeacherListAPIView(generics.RetrieveAPIView):
+class StudentWithTeacherListAPIView(generics.ListAPIView):
     serializer_class = StudentSerializer
 
-    def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
-        pk = self.kwargs['pk']
-        print(pk)
-        return Student.objects.filter(teacher__pk=pk)
+    def get_queryset(self, *args, **kwargs):
+        queryset = Student.objects.all()
+        staff_no = self.request.query_params.get('staff_no')
+        print(staff_no)
+        return queryset.filter(teacher__staff_no=staff_no)

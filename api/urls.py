@@ -12,7 +12,7 @@ router.register(r'student', StudentViewSet, basename='student')
 
 
 urlpatterns = [
-    path('^teacher/by/(?P<pk>\w+)/$', StudentWithTeacherListAPIView.as_view(), name="student_teacher"),
+    path('teacher/filter/', StudentWithTeacherListAPIView.as_view(), name="student_teacher"),
 ]
 
 urlpatterns += router.urls
